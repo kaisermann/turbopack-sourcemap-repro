@@ -1,0 +1,41 @@
+# Turbopack sourcemap hash mismatch repro
+
+Minimal reproduction showing that Turbopack production builds use different content hashes for `.js` bundles and their `.js.map` sourcemaps in `static/chunks/`.
+
+For example, a bundle named `abc123.js` contains `//# sourceMappingURL=def456.js.map`, pointing to a map file with a completely different hash. The map file exists on disk but has no same-name `.js` counterpart, making it an orphan from the perspective of filesystem-scanning tools.
+
+This breaks tooling that relies on the standard convention of same-name pairing (e.g. `foo.js` + `foo.js.map`), including [bugsnag-cli](https://github.com/bugsnag/bugsnag-cli), Sentry CLI, and others.
+
+Browsers work fine because they follow the `sourceMappingURL` comment.
+
+## Setup
+
+Zero custom config beyond `productionBrowserSourceMaps: true`. No plugins, no babel, no custom loaders.
+
+- Next.js 16.1.6
+- React 19
+- Node.js 22
+
+## Reproduce
+
+```bash
+npm install
+npm run build
+npm run analyze
+```
+
+The `analyze` script scans the `.next/` output and reports mismatched vs conventional sourcemap pairing per directory.
+
+## Results
+
+- **`static/chunks/`** (client-side): 9 out of 10 JS files have mismatched hashes between bundle and map
+- **`server/chunks/ssr/`** (SSR): all files use conventional same-name pairing
+- Multiple orphan `.map` files exist (no same-name `.js` file on disk)
+
+### Expected
+
+`abc123.js` references `abc123.js.map` (same base name), matching the convention used by SSR chunks and webpack builds.
+
+### Actual
+
+`abc123.js` references `def456.js.map` (different hash). The `.map` file exists but tools that scan by filename convention can't associate them.
