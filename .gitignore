@@ -1,3 +1,11 @@
 node_modules/
-.next/
 next-env.d.ts
+
+# Only commit the relevant build artifacts that demonstrate the issue
+.next/*
+!.next/static/
+!.next/server/
+.next/server/*
+!.next/server/chunks/
+.next/server/chunks/*
+!.next/server/chunks/ssr/

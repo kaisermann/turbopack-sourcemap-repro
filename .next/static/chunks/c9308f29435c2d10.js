@@ -1,0 +1,3 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,61642,e=>{"use strict";var t=e.i(43476),i=e.i(71645);function s(){let[e,s]=(0,i.useState)(!1);return(0,i.useEffect)(()=>{s(!0)},[]),(0,t.jsxs)("main",{children:[(0,t.jsx)("h1",{children:"About Page"}),(0,t.jsxs)("p",{children:["Mounted: ",String(e)]})]})}e.s(["default",()=>s])}]);
+
+//# sourceMappingURL=14315dcfe232f278.js.map

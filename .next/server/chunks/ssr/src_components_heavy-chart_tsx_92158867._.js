@@ -1,0 +1,3 @@
+module.exports=[30005,a=>{"use strict";var b=a.i(87924),c=a.i(72131);let d=Array.from({length:100},(a,b)=>({label:`Item ${b}`,value:100*Math.random()}));function e(){let[a,e]=(0,c.useState)(!1);(0,c.useEffect)(()=>{console.log("HeavyChart mounted with",d.length,"items")},[]);let f=a?[...d].sort((a,b)=>b.value-a.value):d;return(0,b.jsxs)("div",{children:[(0,b.jsx)("button",{onClick:()=>e(a=>!a),children:a?"Unsort":"Sort by value"}),(0,b.jsx)("ul",{children:f.slice(0,10).map(a=>(0,b.jsxs)("li",{children:[a.label,": ",a.value.toFixed(2)]},a.label))})]})}a.s(["default",()=>e])},29799,a=>{a.n(a.i(30005))}];
+
+//# sourceMappingURL=src_components_heavy-chart_tsx_92158867._.js.map

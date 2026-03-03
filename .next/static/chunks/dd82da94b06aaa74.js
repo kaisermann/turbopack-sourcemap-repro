@@ -1,0 +1,3 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,5916,e=>{"use strict";var l=e.i(43476),t=e.i(71645);let i=Array.from({length:100},(e,l)=>({label:`Item ${l}`,value:100*Math.random()}));function o(){let[e,o]=(0,t.useState)(!1);(0,t.useEffect)(()=>{console.log("HeavyChart mounted with",i.length,"items")},[]);let a=e?[...i].sort((e,l)=>l.value-e.value):i;return(0,l.jsxs)("div",{children:[(0,l.jsx)("button",{onClick:()=>o(e=>!e),children:e?"Unsort":"Sort by value"}),(0,l.jsx)("ul",{children:a.slice(0,10).map(e=>(0,l.jsxs)("li",{children:[e.label,": ",e.value.toFixed(2)]},e.label))})]})}e.s(["default",()=>o])},59740,e=>{e.n(e.i(5916))}]);
+
+//# sourceMappingURL=f45718285dcefdf2.js.map

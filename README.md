@@ -8,6 +8,13 @@ This breaks tooling that relies on the standard convention of same-name pairing 
 
 Browsers work fine because they follow the `sourceMappingURL` comment.
 
+## Build output included
+
+The `.next/` build output is committed so you can inspect the issue directly:
+
+- **`.next/static/chunks/`** -- client-side bundles. Notice that `.js` and `.js.map` files have completely different hashes (no name matches).
+- **`.next/server/chunks/ssr/`** -- SSR bundles. Every `.js` file has a matching `.js.map` with the same name (conventional pairing).
+
 ## Setup
 
 Zero custom config beyond `productionBrowserSourceMaps: true`. No plugins, no babel, no custom loaders.
