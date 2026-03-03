@@ -2,11 +2,9 @@
 
 Minimal reproduction showing that Turbopack production builds use different content hashes for `.js` bundles and their `.js.map` sourcemaps in `static/chunks/`.
 
-For example, a bundle named `abc123.js` contains `//# sourceMappingURL=def456.js.map`, pointing to a map file with a completely different hash. The map file exists on disk but has no same-name `.js` counterpart, making it an orphan from the perspective of filesystem-scanning tools.
+For example, a bundle named `abc123.js` contains `//# sourceMappingURL=def456.js.map`, pointing to a map file with a completely different hash. The map file exists on disk but has no same-name `.js` counterpart, making it an orphan from the perspective of naive filesystem-scanning tools like [`bugsnag-cli`](https://github.com/bugsnag/bugsnag-cli/blob/156f6b4b596cf9536e1e7373b4edf8a52022d118/pkg/upload/js.go#L249-L264) which resolve bundles via `strings.CutSuffix(mapPath, ".map")` instead of reading the `sourceMappingURL` comment.
 
-This breaks tooling that relies on the standard convention of same-name pairing (e.g. `foo.js` + `foo.js.map`), including [bugsnag-cli](https://github.com/bugsnag/bugsnag-cli), Sentry CLI, and others.
-
-Browsers work fine because they follow the `sourceMappingURL` comment.
+Browsers work fine because they follow the `sourceMappingURL` comment. The inconsistency is between client-side chunks (mismatched) and SSR chunks (conventional pairing) within the same build.
 
 ## Build output included
 
